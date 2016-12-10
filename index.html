@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>ondevice-gui</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="photon-0.1.2-dist/css/photon.css">
+
+    <!-- Electron Javascript -->
+    <script src="app.js" charset="utf-8"></script>
   </head>
+
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <!-- Wrap your entire app inside .window -->
+    <div class="window">
+<header class="toolbar toolbar-header">
+  <h1 class="title">ondevice-gui</h1>
+
+  <div class="toolbar-actions">
+    <div class="btn-group">
+      <button class="btn btn-default">
+        <span class="icon icon-home"></span>
+      </button>
+      <button class="btn btn-default">
+        <span class="icon icon-folder"></span>
+      </button>
+      <button class="btn btn-default active">
+        <span class="icon icon-cloud"></span>
+      </button>
+      <button class="btn btn-default">
+        <span class="icon icon-popup"></span>
+      </button>
+      <button class="btn btn-default">
+        <span class="icon icon-shuffle"></span>
+      </button>
+    </div>
+
+    <button class="btn btn-default">
+      <span class="icon icon-home icon-text"></span>
+      Filters
+    </button>
+
+    <button class="btn btn-default btn-dropdown pull-right">
+      <span class="icon icon-megaphone"></span>
+    </button>
+  </div>
+</header>
+
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+        <div class="added-more">
+          <ul class="list-group" id="deviceList">
+            <li class="list-group-header">
+              <input class="form-control" type="text" placeholder="Search for someone">
+            </li>
+          </ul>
+        </div>
+      </div>
+<footer class="toolbar toolbar-footer">
+  <div class="toolbar-actions">
+    <span id="onlineCount">0/0</span> devices online
+  </div>
+</footer>
+    </div>
   </body>
 </html>
