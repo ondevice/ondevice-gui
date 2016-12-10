@@ -15,7 +15,7 @@ class DeviceList {
 		//	console.log(device);
 
 			var li = $('<li class="list-group-item">\n'
-				+ '<img class="img-circle media-object pull-left" src="img/device.png" width="32" height="32">\n'
+				+ '<span class="icon icon-monitor pull-left" style="font-size:24px;padding-right:5px" />\n'
 				+ '<div class="media-body">\n'
 				+ '<strong>device name</strong>\n'
 				+ '<p>deviceId</p>\n'
