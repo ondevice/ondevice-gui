@@ -1,5 +1,5 @@
 EventSource = require('./eventSource.js');
-RestClient = require('./RestClient.js');
+RestClient = require('./restClient.js');
 $ = require('jQuery');
 
 var instance = null;
