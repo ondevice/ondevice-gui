@@ -27,7 +27,7 @@ class Config {
 
   /// Get the authentication key of the selected client user
   getClientAuth() {
-    if (this._selectedUser !== null) return this.config.client['auth_'+this._selectedUser];
+    if (this._selectedUser !== null) return this._config.client['auth_'+this._selectedUser];
     return this._config.client.auth;
   }
 
@@ -51,7 +51,7 @@ class Config {
   switchClientUser(name) {
     if (name === this._config.client.user) {
       // we're back to the default user
-      this._selectedUser = undefined;
+      this._selectedUser = null;
     }
     else {
       if (this._config.client['auth_'+name] === undefined) {
