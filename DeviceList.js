@@ -1,15 +1,37 @@
 RestClient = require('./RestClient.js');
 $ = require('jQuery');
 
+var instance = null;
+
+function _clickHandler(ev) {
+	if (instance._selectedItem != undefined) {
+		$(instance._selectedItem).removeClass('selected');
+	}
+	instance._selectedItem = this;
+	$(this).addClass('selected');
+}
+
 class DeviceList {
+	clear() {
+		$('#deviceList').empty();
+		this._selectedItem = undefined;
+		this._items = {};
+	}
+
 	reload() {
 		RestClient.listDevices(this._reload);
+	}
+
+	_deviceSelected() {
+		console.log('deviceSelected');
+		console.log(this);
 	}
 
 	_reload(data) {
 		var $list = $('#deviceList');
 		var onlineDevices = 0;
-		$list.empty();
+
+		instance.clear();
 
 		for (var device of data.devices) {
 		//	console.log(device);
@@ -25,13 +47,18 @@ class DeviceList {
 			li.dataset['devId'] = device.id;
 			li.dataset['dev'] = device;
 			$(li).addClass(device.state);
+			$(li).addClass('device');
 			$list.append(li);
 
 			if (device.state == 'online') onlineDevices += 1;
+
+			li.addEventListener('click', _clickHandler);
+			instance._items[device.id] = li;
 		}
 
 		$('#onlineCount').text(onlineDevices+'/'+data.devices.length);
 	}
 }
 
-module.exports = new DeviceList();
+instance = new DeviceList();
+module.exports = instance;
