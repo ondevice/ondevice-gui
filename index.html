@@ -5,16 +5,18 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="photon/css/photon.css" />
+    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
     <link rel="stylesheet" href="main.css" />
 
-    <!-- Electron Javascript -->
+    <!-- Javascript -->
+    <script src="node_modules/xterm/dist/xterm.js"></script>
     <script src="app.js" charset="utf-8"></script>
   </head>
 
   <body>
     <!-- Wrap your entire app inside .window -->
     <div class="window">
-<header class="toolbar toolbar-header">
+<!--<header class="toolbar toolbar-header">
   <h1 class="title">ondevice-gui</h1>
 
   <div class="toolbar-actions">
@@ -45,14 +47,39 @@
       <span class="icon icon-megaphone"></span>
     </button>
   </div>
-</header>
+</header>-->
 
+<header class="toolbar toolbar-header">
+<div class="tab-group">
+  <div class="tab-item">
+    <span class="icon icon-cancel icon-close-tab"></span>
+    Tab
+  </div>
+  <div class="tab-item active">
+    <span class="icon icon-cancel icon-close-tab"></span>
+    Tab active
+  </div>
+  <div class="tab-item">
+    <span class="icon icon-cancel icon-close-tab"></span>
+    Tab
+  </div>
+  <div class="tab-item tab-item-fixed">
+    <span class="icon icon-plus"></span>
+  </div>
+</div>
+</header>
       <!-- Your app's content goes inside .window-content -->
       <div class="window-content"><div class="pane-group">
         <div class="pane-sm sidebar">
-          <ul class="list-group" id="deviceList">
+          <nav class="nav-group" id="userList">
+            <span class="nav-group-item active">
+              <span class="icon icon-user"></span> demo
+            </a>
+          </nav>
+          <hr style="margin: 0" />
+          <ul class="list-group" id="deviceList" style="overflow:auto">
             <li class="list-group-header">
-              <input class="form-control" type="text" placeholder="Search for someone">
+              <input class="form-control" type="text" placeholder="Search">
             </li>
           </ul>
         </div>

@@ -1,3 +1,7 @@
-li.offline {
+li.device.offline {
   color: #aaa;
+}
+
+li.device:hover {
+  background-color:#fda;
 }
