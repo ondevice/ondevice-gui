@@ -1,18 +1,10 @@
 var $ = require('jQuery');
-var fs = require('fs');
-var ini = require('ini');
+var config = require('./config.js')
 
 class RestClient {
 	constructor() {
-		var config = ini.parse(fs.readFileSync(this._getUserHome()+'/.config/ondevice/ondevice.conf', 'utf-8'))
-		console.log(config);
-		this.user=config.client.user;
-		this.auth=config.client.auth;
-	}
-
-	_getUserHome() {
-		// TODO put me into a 'config' module
-		return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+		this.user=config.getClientUser();
+		this.auth=config.getClientAuth();
 	}
 
 	_getJSON(url, data, callback) {
