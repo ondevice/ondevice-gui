@@ -1,3 +1,4 @@
+EventSource = require('./eventSource.js');
 RestClient = require('./RestClient.js');
 $ = require('jQuery');
 
@@ -9,9 +10,14 @@ function _clickHandler(ev) {
 	}
 	instance._selectedItem = this;
 	$(this).addClass('selected');
+	instance.ev.fire('deviceSelected', this.dataset['devId']);
 }
 
 class DeviceList {
+	constructor() {
+		this.ev = new EventSource(['deviceSelected']);
+	}
+
 	clear() {
 		$('#deviceList').empty();
 		this._selectedItem = undefined;
