@@ -10,7 +10,9 @@ function _clickHandler(ev) {
 	}
 	instance._selectedItem = this;
 	$(this).addClass('selected');
-	instance.ev.fire('deviceSelected', this.dataset['devId']);
+
+	var devId = this.dataset['devId'];
+	instance.ev.fire('deviceSelected', devId, this._info);
 }
 
 function _reload(data) {
@@ -31,7 +33,7 @@ function _reload(data) {
 		$('strong', li).text(device.name != null ? device.name : device.id);
 		$('p', li).text(device.id);
 		li.dataset['devId'] = device.id;
-		li.dataset['dev'] = device;
+		li._info = device;
 		$(li).addClass(device.state);
 		$(li).addClass('device');
 		$list.append(li);
