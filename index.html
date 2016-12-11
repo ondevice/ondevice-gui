@@ -49,23 +49,8 @@
   </div>
 </header>-->
 
-<header class="toolbar toolbar-header">
-<div class="tab-group">
-  <div class="tab-item">
-    <span class="icon icon-cancel icon-close-tab"></span>
-    Tab
-  </div>
-  <div class="tab-item active">
-    <span class="icon icon-cancel icon-close-tab"></span>
-    Tab active
-  </div>
-  <div class="tab-item">
-    <span class="icon icon-cancel icon-close-tab"></span>
-    Tab
-  </div>
-  <div class="tab-item tab-item-fixed">
-    <span class="icon icon-plus"></span>
-  </div>
+<header class="toolbar toolbar-header" style="display: none">
+<div class="tab-group" id="tabs">
 </div>
 </header>
       <!-- Your app's content goes inside .window-content -->
@@ -83,7 +68,7 @@
             </li>
           </ul>
         </div>
-        <div class="pane" id="mainContent"></div>
+        <div class="pane" id="mainContainer"></div>
       </div></div>
 <footer class="toolbar toolbar-footer">
   <div class="toolbar-actions">

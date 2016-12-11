@@ -1,4 +1,5 @@
 var fs = require('fs');
+var tabs = require('./tabs.js');
 
 class DevicePage {
   constructor() {
@@ -17,9 +18,11 @@ class DevicePage {
     $('.deviceIp', $page).text(device.ip);
     $('.deviceClient', $page).text(device.version);
 
-
-    $('#mainContent').empty();
-    $('#mainContent').append($page);
+    //tabs.replace(0, $page);
+    $page.tabId = 'device:'+devId;
+    $page.tabIcon = 'icon-monitor';
+    $page.title = devId;
+    tabs.add($page);
   }
 }
 
