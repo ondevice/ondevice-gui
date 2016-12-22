@@ -4,7 +4,7 @@ var Client = require('ssh2').Client;
 var xterm = require('xterm');
 require('xterm/dist/addons/fit/fit.js');
 
-class SshClientPage {
+class TerminalPage {
   _onTermInput(key, ev) {
     this.stream.write(key);
   }
@@ -109,4 +109,4 @@ class SshClientPage {
   }
 }
 
-module.exports = SshClientPage;
+module.exports = TerminalPage;
