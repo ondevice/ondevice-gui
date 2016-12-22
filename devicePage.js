@@ -1,5 +1,6 @@
 var fs = require('fs');
 var tabs = require('./tabs.js');
+var TerminalPage = require('./terminalPage.js');
 
 class DevicePage {
   constructor() {
@@ -18,7 +19,16 @@ class DevicePage {
     $('.deviceIp', $page).text(device.ip);
     $('.deviceClient', $page).text(device.version);
 
-    //tabs.replace(0, $page);
+    // connect buttons
+    $('.sshButton', $page).click(function() {
+      console.log('opening terminal session to '+devId);
+
+      new TerminalPage().open(devId, {
+        user: $('#sshUser', $page).val(),
+        password: $('#sshPassword', $page).val()
+      });
+    })
+
     $page.tabId = 'device:'+devId;
     $page.tabIcon = 'icon-monitor';
     $page.title = devId;

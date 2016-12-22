@@ -15,3 +15,44 @@
 		<td class="deviceClient">ondevice v0.1.2</td>
 	</tr>
 </table>
+
+<div>
+<h4>SSH</h4>
+<form id="foobar123">
+	<fieldset>
+		<legend>SSH</legend>
+
+		<div class="btn-group">
+			<button type="button" class="btn active btn-large btn-default toggleBtn" data-group="pwd">
+        Password
+      </button>
+			<button type="button" class="btn btn-large btn-default toggleBtn" data-group="sshkey">
+        SSH-Key
+      </button>
+		</div><br />
+		<input type="text" id="sshUser" placeholder="username" /><br />
+		<input type="password" id="sshPassword" placeholder="password" data-group="pwd" />
+	</fieldset>
+
+	<button type="button" class="sshButton btn btn-large btn-primary">Open terminal</button>
+</form>
+</div>
+
+<script>
+function toggleGroupVisibility(ev) {
+	var form = $(this).parents('form');
+	var currentGroup = this.dataset['group'];
+
+	for (var elem of $('[data-group]', form)) {
+		if ($(elem).hasClass('toggleBtn')) {
+			if (elem === this) $(elem).addClass('active');
+			else $(elem).removeClass('active');
+			continue;
+		}
+		if (elem.dataset['group'] == currentGroup) $(elem).show();
+		else $(elem).hide();
+	}
+}
+
+$('.toggleBtn').click(toggleGroupVisibility);
+</script>
