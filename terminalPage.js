@@ -24,13 +24,25 @@ class TerminalPage {
     this.terminal.write(data.toString());
   }
 
-  _onReady(a,b,c) {
-    console.log('_onReady', a, b,c);
+  _onSshReady(a,b,c) {
+    console.log('_onSshReady', a, b,c);
     this.ssh.shell({
       cols: 80,
       rows: 24,
-      host: 'localhost'
+      host: 'localhost',
+      sock: this.tunnel
     }, this._onConnect.bind(this));
+  }
+
+  _onTunnelConnected() {
+    // ok, the tunnel's up, let's start SSH
+    console.log('Opening SSH connection (as user: '+this.username+')');
+    this.ssh.connect({
+      sock: this.tunnel,
+      tryKeyboard: true,
+      username: this.username,
+      password: this.password
+    });
   }
 
   _readInput(c) {
@@ -44,9 +56,11 @@ class TerminalPage {
     if (options.user == undefined) throw "Missing SSH username";
     if (options.password == undefined) throw "Missing SSH password";
     this.username = options.user;
+    this.password = options.password; // TODO avoid storing the password
 
     this.tunnel = new TunnelClient();
-//    this.tunnel.addListener('eof', )
+    this.tunnel.on('connect', this._onTunnelConnected.bind(this));
+    this.tunnel.connect({devId: devId, service: 'ssh'}); // TODO make me configurable
 
     rc.style.height='100%';
     rc.tabIcon = 'icon-lock';
@@ -59,7 +73,7 @@ class TerminalPage {
 
     // set up connection
     this.ssh = new Client();
-    this.ssh.on('ready', this._onReady.bind(this));
+    this.ssh.on('ready', this._onSshReady.bind(this));
     this.ssh.on('banner', function(message, language) {
       console.log('_onBanner:', message, language);
     });
@@ -78,27 +92,9 @@ class TerminalPage {
 
     // cross-link everything
     this.terminal = term;
+    this.terminal.on('key', this._onTermInput.bind(this));
     this.tab = rc;
     rc._page = this;
-
-    // open the SSH connection (TODO this should only happen after the connection was established)
-    if (false) {
-      term.write('User: ');
-      this._userInputCallback = this._inputUsername.bind(this);
-      term.on('key', this._userInputCallback);
-    }
-    else {
-      console.log('SSH user: '+this.username);
-
-      this.terminal.on('key', this._onTermInput.bind(this));
-      this.ssh.connect({
-        host: 'localhost',
-        port: 22,
-        tryKeyboard: true,
-        username: this.username,
-        password: options.password
-      });
-    }
 
     $(window).on('resize', function(ev) {
       console.log('onResize', ev);
